@@ -55,141 +55,141 @@ describe("stake-native-coin", () => {
     }
   });
 
-  it("set meatadata!", async () => {
-    let metadataData: any = {
-      name: "quensera",
-      symbol: "quensera_symbol",
-      uri: "",
-      sellerFeeBasisPoints: 500,
-      suply: 100000
+  // it("set meatadata!", async () => {
+  //   let metadataData: any = {
+  //     name: "quensera",
+  //     symbol: "quensera_symbol",
+  //     uri: "",
+  //     sellerFeeBasisPoints: 500,
+  //     suply: 100000
 
-    }
-    const metadataProgram = MPL_TOKEN_METADATA_PROGRAM_ID
+  //   }
+  //   const metadataProgram = MPL_TOKEN_METADATA_PROGRAM_ID
 
-    let metadataAccount = findMetadataPda(umi, {
-      mint: publicKey(mintToken.publicKey),
-    })[0];
+  //   let metadataAccount = findMetadataPda(umi, {
+  //     mint: publicKey(mintToken.publicKey),
+  //   })[0];
 
-    let masterEditionAccount = findMasterEditionPda(umi, {
-      mint: publicKey(mintToken.publicKey),
-    })[0];
+  //   let masterEditionAccount = findMasterEditionPda(umi, {
+  //     mint: publicKey(mintToken.publicKey),
+  //   })[0];
 
-    let editionAccount = Keypair.generate()
+  //   let editionAccount = Keypair.generate()
 
-    console.log("Program ID : ", anchor.web3.SystemProgram)
-    console.log("Token Program ID : ", anchor.utils.token.TOKEN_PROGRAM_ID)
-    try {
-      const tx = await program.methods.setTokenMetadata(metadataData)
-        .accounts({
-          mintToken: mintToken.publicKey,
-          signer: provider.wallet.publicKey,
-          metadataAccount: metadataAccount,
-          masterAccount: masterEditionAccount,
-          editionAccount: editionAccount.publicKey,
-          systemProgram: anchor.web3.SystemProgram.programId,
-          tokenProgram: TOKEN_PROGRAM_ID,
-          associateTokenProgram: anchor.utils.token.ASSOCIATED_PROGRAM_ID,
-          metadataProgram: metadataProgram,
-          rent: anchor.web3.SYSVAR_RENT_PUBKEY
-        })
-        .signers([mintToken])
-        .rpc();
-    } catch (err) {
-      console.log("err =>", err)
-    }
-  })
-
-
-  // it("Token transfer", async () => {
-
-  //   let reciever = anchor.web3.Keypair.generate()
-  //   const signature = await provider.connection.requestAirdrop(reciever.publicKey, anchor.web3.LAMPORTS_PER_SOL)
-  //   await provider.connection.confirmTransaction(signature)
-  //   let recieverTokenAccountKeypair = anchor.web3.Keypair.generate()
-  //   await createAccount(provider.connection, reciever, mintToken.publicKey, reciever.publicKey, recieverTokenAccountKeypair);
-
+  //   console.log("Program ID : ", anchor.web3.SystemProgram)
+  //   console.log("Token Program ID : ", anchor.utils.token.TOKEN_PROGRAM_ID)
   //   try {
-  //     const tx = await program.methods.tranfserToken(new anchor.BN(10 ** 9 * 90))
+  //     const tx = await program.methods.setTokenMetadata(metadataData)
   //       .accounts({
   //         mintToken: mintToken.publicKey,
-  //         fromAccount: tokenAccount,
-  //         toAccount: recieverTokenAccountKeypair.publicKey,
-  //         associateTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID
+  //         signer: provider.wallet.publicKey,
+  //         metadataAccount: metadataAccount,
+  //         masterAccount: masterEditionAccount,
+  //         editionAccount: editionAccount.publicKey,
+  //         systemProgram: anchor.web3.SystemProgram.programId,
+  //         tokenProgram: TOKEN_PROGRAM_ID,
+  //         associateTokenProgram: anchor.utils.token.ASSOCIATED_PROGRAM_ID,
+  //         metadataProgram: metadataProgram,
+  //         rent: anchor.web3.SYSVAR_RENT_PUBKEY
   //       })
-  //       .signers([])
-  //       .rpc()
-
-  //     console.log("Your transaction signature", tx);
-  //   } catch (error) {
-  //     console.log(error)
+  //       .signers([mintToken])
+  //       .rpc();
+  //   } catch (err) {
+  //     console.log("err =>", err)
   //   }
-
   // })
 
 
-  // it("Set Authority token!", async () => {
-  //   let new_signer = anchor.web3.Keypair.generate()
-  //   try {
-  //     const tx = await program.methods.setAuthorityToken(0)
-  //       .accounts({
-  //         mintToken: mintToken.publicKey,
-  //         tokenAccount: tokenAccount,
-  //         newSigner: new_signer.publicKey,
-  //       })
-  //       .signers([new_signer])
-  //       .rpc();
-  //     console.log("Your transaction signature", tx);
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  // });
+  it("Token transfer", async () => {
 
-  // it("Freeze token!", async () => {
-  //   const tx = await program.methods.freezeToken()
-  //     .accounts({
-  //       mintToken: mintToken.publicKey,
-  //       tokenAccount,
-  //     })
-  //     .signers([])
-  //     .rpc();
-  //   console.log("Your transaction signature", tx);
-  // });
+    let reciever = anchor.web3.Keypair.generate()
+    const signature = await provider.connection.requestAirdrop(reciever.publicKey, anchor.web3.LAMPORTS_PER_SOL)
+    await provider.connection.confirmTransaction(signature)
+    let recieverTokenAccountKeypair = anchor.web3.Keypair.generate()
+    await createAccount(provider.connection, reciever, mintToken.publicKey, reciever.publicKey, recieverTokenAccountKeypair);
 
-  // it("Unfreeze token!", async () => {
-  //   const tx = await program.methods.unFreezeToken()
-  //     .accounts({
-  //       mintToken: mintToken.publicKey,
-  //       tokenAccount,
-  //     })
-  //     .signers([])
-  //     .rpc();
-  //   console.log("Your transaction signature", tx);
-  // });
+    try {
+      const tx = await program.methods.tranfserToken(new anchor.BN(10 ** 9 * 90))
+        .accounts({
+          mintToken: mintToken.publicKey,
+          fromAccount: tokenAccount,
+          toAccount: recieverTokenAccountKeypair.publicKey,
+          associateTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID
+        })
+        .signers([])
+        .rpc()
 
-  // it("Burn token!", async () => {
-  //   try {
-  //     const tx = await program.methods.burnToken(new anchor.BN(10 ** 9 * 10))
-  //       .accounts({
-  //         mintToken: mintToken.publicKey,
-  //         tokenAccount,
-  //       })
-  //       .signers([])
-  //       .rpc();
-  //     console.log("Your transaction signature", tx);
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
+      console.log("Your transaction signature", tx);
+    } catch (error) {
+      console.log(error)
+    }
 
-  // });
+  })
 
-  // it("Close token!", async () => {
-  //   const tx = await program.methods.closeToken()
-  //     .accounts({
-  //       mintToken: mintToken.publicKey,
-  //       tokenAccount,
-  //     })
-  //     .signers([])
-  //     .rpc();
-  //   console.log("Your transaction signature", tx);
-  // });
+
+  it("Set Authority token!", async () => {
+    let new_signer = anchor.web3.Keypair.generate()
+    try {
+      const tx = await program.methods.setAuthorityToken(0)
+        .accounts({
+          mintToken: mintToken.publicKey,
+          tokenAccount: tokenAccount,
+          newSigner: new_signer.publicKey,
+        })
+        .signers([new_signer])
+        .rpc();
+      console.log("Your transaction signature", tx);
+    } catch (e) {
+      console.log(e)
+    }
+  });
+
+  it("Freeze token!", async () => {
+    const tx = await program.methods.freezeToken()
+      .accounts({
+        mintToken: mintToken.publicKey,
+        tokenAccount,
+      })
+      .signers([])
+      .rpc();
+    console.log("Your transaction signature", tx);
+  });
+
+  it("Unfreeze token!", async () => {
+    const tx = await program.methods.unFreezeToken()
+      .accounts({
+        mintToken: mintToken.publicKey,
+        tokenAccount,
+      })
+      .signers([])
+      .rpc();
+    console.log("Your transaction signature", tx);
+  });
+
+  it("Burn token!", async () => {
+    try {
+      const tx = await program.methods.burnToken(new anchor.BN(10 ** 9 * 10))
+        .accounts({
+          mintToken: mintToken.publicKey,
+          tokenAccount,
+        })
+        .signers([])
+        .rpc();
+      console.log("Your transaction signature", tx);
+    } catch (error) {
+      console.log(error)
+    }
+
+  });
+
+  it("Close token!", async () => {
+    const tx = await program.methods.closeToken()
+      .accounts({
+        mintToken: mintToken.publicKey,
+        tokenAccount,
+      })
+      .signers([])
+      .rpc();
+    console.log("Your transaction signature", tx);
+  });
 });
