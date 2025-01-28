@@ -96,7 +96,7 @@ pub mod stake_native_coin {
         Ok(())
     }
 
-    pub fn transer_token(ctx: Context<TransferToken>,amount:u64)->Result<()>{
+    pub fn tranfser_token(ctx: Context<TransferToken>,amount:u64)->Result<()>{
 
         msg!("Started {:} tokens transfer from account {:} to {:}",amount,ctx.accounts.from_account.key(),ctx.accounts.to_account.key());
 

@@ -5,6 +5,9 @@
     },
     "dependencies": {
         "@coral-xyz/anchor": "^0.29.0",
+        "@metaplex-foundation/mpl-token-metadata": "^3.3.0",
+        "@metaplex-foundation/umi-bundle-defaults": "^0.8.9",
+        "@metaplex-foundation/umi-signer-wallet-adapters": "^0.8.9",
         "@solana/spl-token": "^0.4.9"
     },
     "devDependencies": {
