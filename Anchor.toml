@@ -5,7 +5,7 @@ seeds = false
 skip-lint = false
 
 [programs.localnet]
-stake_native_coin = "9t3tzBtG43BeareJE8QZCBhP7714zryqxdwCiqM3Pv9u"
+stake_native_coin = "G8m9BNx5Z4ZqAZzWmMtAxsY7v4UFNuza5y33KeFoJgcN"
 
 [registry]
 url = "https://api.apr.dev"

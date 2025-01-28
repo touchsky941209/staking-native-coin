@@ -1,10 +1,21 @@
 use anchor_lang::prelude::*;
-use anchor_spl::{token::{Token, TokenAccount, Mint}, associated_token::AssociatedToken};
-use mpl_token_metadata::types::DataV2;
-declare_id!("9t3tzBtG43BeareJE8QZCBhP7714zryqxdwCiqM3Pv9u");
+use anchor_spl::{
+    token::{
+        Token, 
+        TokenAccount, 
+        Mint
+    }, 
+    associated_token::AssociatedToken,
+    metadata::{
+        mpl_token_metadata::types::DataV2
+    }
+};
+
+declare_id!("G8m9BNx5Z4ZqAZzWmMtAxsY7v4UFNuza5y33KeFoJgcN");
 
 #[program]
 pub mod stake_native_coin {
+    use super::*;
     use anchor_lang::system_program;
     use anchor_spl::{
         token::{
@@ -32,10 +43,10 @@ pub mod stake_native_coin {
             create_master_edition_v3
         }
     };
-    // use mpl_token_metadata::instruction::CreateMasterEdition;
-    
 
-    use super::*;
+    pub fn initialize(_ctx: Context<Initialize>) -> Result<()> {
+        Ok(())
+    }
 
     pub fn create_token(ctx: Context<CreateToken>,decimals:u8,amount:u64) -> Result<()> {
 
@@ -280,6 +291,10 @@ pub mod stake_native_coin {
         Ok(())
     }
 }
+
+#[derive(Accounts)]
+pub struct Initialize {}
+
 
 #[derive(Debug,AnchorDeserialize,AnchorSerialize)]
 pub struct MetadataData{
